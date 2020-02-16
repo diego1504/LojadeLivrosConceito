@@ -10,6 +10,9 @@
 </head>
 <body>
 	<h1>LISTA DE PRODUTOS QUE VOCE CADASTROU</h1>
+	
+	<p>${sucesso }</p>
+	
 	<table> 
 		<tr> 
 			<td>Titulo</td>

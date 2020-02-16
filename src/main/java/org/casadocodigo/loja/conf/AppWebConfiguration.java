@@ -2,8 +2,10 @@ package org.casadocodigo.loja.conf;
 
 import org.casadocodigo.loja.controllers.HomeController;
 import org.casadocodigo.loja.daos.ProdutoDAO;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
@@ -28,5 +30,14 @@ public class AppWebConfiguration {
 	}
 	
 	
+	//metodo responsavel pela configuracao das mensagens de erro
+	@Bean
+	public MessageSource messageSource(){
+	    ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+	    messageSource.setBasename("/WEB-INF/messages");
+	    messageSource.setDefaultEncoding("UTF-8");
+	    messageSource.setCacheSeconds(1);
+	    return messageSource;
+	}	
 	
 }
