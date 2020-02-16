@@ -1,5 +1,8 @@
 package org.casadocodigo.loja.conf;
 
+import javax.servlet.Filter;
+
+import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 
@@ -21,6 +24,10 @@ public class ServletSpringMVC extends AbstractAnnotationConfigDispatcherServletI
 		return new String[] {"/"}; //estou avisando ao servidor que o spring toma conta agora a partir do barra depois do casa do codigo
 	}
 
-	
-	
+	@Override
+	protected Filter[] getServletFilters() {
+		CharacterEncodingFilter encondingFilter = new CharacterEncodingFilter();
+		encondingFilter.setEncoding("UTF-8");
+		return new Filter[] {encondingFilter};
+	}
 }

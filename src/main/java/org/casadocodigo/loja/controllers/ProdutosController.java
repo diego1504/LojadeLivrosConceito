@@ -12,12 +12,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
+@RequestMapping("/produtos") //incluindo aqui o /produtos todos os metodos abaixo herdam este cara
 public class ProdutosController {
 
 	@Autowired   //anotacao para injetar o objeto
 	private ProdutoDAO produtoDao;
 	
-	@RequestMapping("/produtos/form")
+	@RequestMapping("/form")
 	public ModelAndView form() {
 		// as duas linhas abaixo servem para enviar para o view o objeto tipo preco que é um enum. usamos o objeto modelandview para enviar esta informacao
 		ModelAndView modelAndView = new ModelAndView("produtos/form");
@@ -27,7 +28,7 @@ public class ProdutosController {
 		return modelAndView;
 	}
 	
-	@RequestMapping(value="/produtos", method=RequestMethod.POST)
+	@RequestMapping(method=RequestMethod.POST) //aqui a diferença do metodo é o fato de ser invocado como post
 //	public String grava(String titulo, String descricao, int paginas) { <- maneira nao elegante
 	public String grava(Produto produto) {	
 		System.out.println(produto); //importante lembrar que o JAVA ja faz o binding pois as variaveis estao com o mesmo nome do JSP
@@ -37,7 +38,7 @@ public class ProdutosController {
 		return "produtos/ok";
 	}
 	
-	@RequestMapping(value="/produtos", method=RequestMethod.GET)
+	@RequestMapping(method=RequestMethod.GET)
 	public ModelAndView listar() {	
 		List<Produto> produtos = produtoDao.listar();
 		ModelAndView modelAndView = new ModelAndView("produtos/lista");
