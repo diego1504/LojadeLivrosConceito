@@ -31,7 +31,7 @@ public class ProdutosController {
 	}
 	
 	@RequestMapping("/form")
-	public ModelAndView form() {
+	public ModelAndView form(Produto produto)  { //incluido o objeto produto para que ele seja visivel no JSP usando form
 		// as duas linhas abaixo servem para enviar para o view o objeto tipo preco que é um enum. usamos o objeto modelandview para enviar esta informacao
 		ModelAndView modelAndView = new ModelAndView("produtos/form");
 		modelAndView.addObject("tipos", TipoPreco.values());
@@ -49,7 +49,7 @@ public class ProdutosController {
 		
 		if (result.hasErrors()) {
 			System.out.println("entrei no erro");
-			return form();
+			return form(produto);
 		}
 		
 		produtoDao.gravar(produto);

@@ -1,5 +1,6 @@
 package org.casadocodigo.loja.model;
 
+import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.ElementCollection;
@@ -7,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class Produto {
@@ -18,11 +21,20 @@ public class Produto {
 	private String descricao;
 	private int paginas;
 	
+	@DateTimeFormat //(pattern="dd/MM/yyyy") retirao devido a configuracao ter ficado no aappwebconfiguration
+	private Calendar dataLancamento;
+	
 	@ElementCollection //vai adicionar o preco como parte do produto, ja relaciona, mas sem fazer criar uma tabela 
 	private List<Preco> precos;
 	
 	
 	
+	public Calendar getDataLancamento() {
+		return dataLancamento;
+	}
+	public void setDataLancamento(Calendar dataLancamento) {
+		this.dataLancamento = dataLancamento;
+	}
 	public int getId() {
 		return id;
 	}

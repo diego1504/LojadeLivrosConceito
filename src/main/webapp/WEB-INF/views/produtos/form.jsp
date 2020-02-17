@@ -16,27 +16,34 @@
 	<form:form action= "${s:mvcUrl('PC#grava').build()}" commandName="produto">
 		<div>
 			<label>Titulo</label>
-			<input type= "text" name="titulo">
+			 <form:input path="titulo" />
 			<form:errors path="titulo" />
 			 
 		</div>
 		<div>
 			<label>Descrição</label>
-			<textarea rows="10" cols="20" name="descricao"></textarea>
+			<form:textarea rows="10" cols="20" path="descricao" />
 			<form:errors path="descricao" />
 		</div>
 		<div>
 			<label>Paginas</label>
-			<input type = "text" name = "paginas">
+			<form:input path="paginas" />
 			<form:errors path="paginas" />
+		</div>
+		<div>
+			<label>Data de Lançamento</label>
+			 <form:input path="dataLancamento" />
+			<form:errors path="dataLancamento" />
 		</div>
 		
 		
 		<c:forEach items="${tipos}" var="tipoPreco" varStatus="status">
     		<div>
 		        <label>${tipoPreco}</label>
-		        <input type="text" name="precos[${status.index}].valor" >
-		        <input type="hidden" name="precos[${status.index}].tipo" value="${tipoPreco}" >
+		    	  <!--   <input type="text" name="precos[${status.index}].valor" >
+		        <input type="hidden" name="precos[${status.index}].tipo" value="${tipoPreco}" >  -->
+		        <form:input path="precos[${status.index}].valor" /> 
+          	    <form:hidden path="precos[${status.index}].tipo" value="${tipoPreco}" />
    			 </div>
 		</c:forEach>
 			<button type = "submit"> Cadastrar</button>	
