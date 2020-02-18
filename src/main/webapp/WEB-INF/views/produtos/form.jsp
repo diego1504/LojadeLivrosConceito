@@ -11,9 +11,13 @@
 <title>Titulos dos produtos...</title>
 </head>
 <body>
-<!-- abaixo podemos ver que o form, esta acrescido do form:form ou seja, podemos usar o form do spring para gerennciar erros e regras de campos do lado do servidor --> 
+<!-- abaixo podemos ver que o form, esta acrescido do form:form ou seja, podemos usar o form do spring para gerennciar erros e regras de campos do lado do servidor 
+	podemos ver tambem o uso do enctype para avisar ao action que teremos um upload de arquivos
+
+
+--> 
 	
-	<form:form action= "${s:mvcUrl('PC#grava').build()}" commandName="produto">
+	<form:form action= "${s:mvcUrl('PC#grava').build()}" commandName="produto" enctype="multipart/form-data">
 		<div>
 			<label>Titulo</label>
 			 <form:input path="titulo" />
@@ -46,6 +50,11 @@
           	    <form:hidden path="precos[${status.index}].tipo" value="${tipoPreco}" />
    			 </div>
 		</c:forEach>
+			<div>
+				<label>Sumário</label>
+				<input name="sumario" type="file"> 
+			</div>
+		
 			<button type = "submit"> Cadastrar</button>	
 				
 	</form:form>

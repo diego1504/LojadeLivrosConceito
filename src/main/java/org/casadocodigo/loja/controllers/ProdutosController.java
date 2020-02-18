@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.casadocodigo.infra.FileSaver;
 import org.casadocodigo.loja.daos.ProdutoDAO;
 import org.casadocodigo.loja.model.Produto;
 import org.casadocodigo.loja.model.TipoPreco;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -24,6 +26,9 @@ public class ProdutosController {
 
 	@Autowired   //anotacao para injetar o objeto
 	private ProdutoDAO produtoDao;
+	
+	@Autowired
+	private FileSaver fileSaver;
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
@@ -42,15 +47,24 @@ public class ProdutosController {
 	
 	@RequestMapping(method=RequestMethod.POST) //aqui a diferença do metodo é o fato de ser invocado como post
 //	public String grava(String titulo, String descricao, int paginas) { <- maneira nao elegante
-	public ModelAndView grava(@Valid Produto produto, BindingResult result, RedirectAttributes redirectAttributes ) { 
+	
+	public ModelAndView grava(MultipartFile sumario, @Valid Produto produto, BindingResult result, RedirectAttributes redirectAttributes ) { 
 		//incluimos o @valid para o spring ja validar os dados de objeto para nos {	
 		//o binding result deve ficar depois do produto, para o spring entender
+		//inclusao do multipartfile para receber imagens 
 		System.out.println(produto); //importante lembrar que o JAVA ja faz o binding pois as variaveis estao com o mesmo nome do JSP
+		
+		//System.out.println(sumario.getOriginalFilename()); //mostrar nome do arquivo que fizemos upload
 		
 		if (result.hasErrors()) {
 			System.out.println("entrei no erro");
 			return form(produto);
 		}
+		
+		
+		String path = fileSaver.write("arquivos-sumario", sumario);
+	    produto.setSumarioPath(path);
+
 		
 		produtoDao.gravar(produto);
 		redirectAttributes.addFlashAttribute("sucesso","Produto cadastrado com sucesso!"); //esta linha pendura, este objeto para ser usado na proxima requisicao

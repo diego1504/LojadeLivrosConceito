@@ -27,7 +27,7 @@ public class Produto {
 	@ElementCollection //vai adicionar o preco como parte do produto, ja relaciona, mas sem fazer criar uma tabela 
 	private List<Preco> precos;
 	
-	
+	private String sumarioPath;
 	
 	public Calendar getDataLancamento() {
 		return dataLancamento;
@@ -68,6 +68,12 @@ public class Produto {
 	@Override
 	public String toString() {
 		return "Produto [titulo=" + titulo + ", descricao=" + descricao + ", paginas=" + paginas + "]";
+	}
+	public String getSumarioPath() {
+		return sumarioPath;
+	}
+	public void setSumarioPath(String sumarioPath) {
+		this.sumarioPath = sumarioPath;
 	}
 	
 	
