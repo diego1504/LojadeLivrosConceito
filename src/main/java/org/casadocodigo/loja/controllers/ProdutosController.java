@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
@@ -84,7 +85,14 @@ public class ProdutosController {
 	}
 
 
-
+	@RequestMapping("/detalhe/{id}") //{id} URL amigavel
+	public ModelAndView detalhe(@PathVariable("id") Integer id) {	//PathVariable faz o lunk da url amigavel com o metodo
+		
+		ModelAndView modelAndView = new ModelAndView("produtos/detalhe");
+		Produto produto = produtoDao.find(id);
+		modelAndView.addObject("produtos", produto);
+		return modelAndView;
+	}
 
 
 }
