@@ -2,6 +2,7 @@ package org.casadocodigo.loja.conf;
 
 import org.casadocodigo.loja.controllers.HomeController;
 import org.casadocodigo.loja.daos.ProdutoDAO;
+import org.casadocodigo.loja.model.Carrinho;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -21,7 +22,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 //@ComponentScan (basePackages = {"org.casadocodigo.loja.controllers"})este jeito nao é recomendado pois se mudar o pacote, temos que voltar aqui
 
-@ComponentScan (basePackageClasses = {HomeController.class,ProdutoDAO.class})
+@ComponentScan (basePackageClasses = {HomeController.class,ProdutoDAO.class, Carrinho.class})
 public class AppWebConfiguration {
 	
 	//metodo criado para configurar como serao tratados os resources de pagina
@@ -32,7 +33,12 @@ public class AppWebConfiguration {
 		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
 		resolver.setPrefix("/WEB-INF/views/");
 		resolver.setSuffix(".jsp");
+		//resolver.setExposeContextBeansAsAttributes(true); //faz com que todos os nossos beans fiquem disponiveis no JSTL (nice) 
+		resolver.setExposedContextBeanNames("carrinho"); //faz somente o bean descrito na classe
 		return resolver;
+	
+		
+	
 	}
 	
 	

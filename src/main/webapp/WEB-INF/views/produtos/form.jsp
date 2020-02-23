@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
     
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>   
@@ -25,7 +25,7 @@
 			 
 		</div>
 		<div>
-			<label>DescriÁ„o</label>
+			<label>Descri√ß√£o</label>
 			<form:textarea rows="10" cols="20" path="descricao" />
 			<form:errors path="descricao" />
 		</div>
@@ -35,7 +35,7 @@
 			<form:errors path="paginas" />
 		</div>
 		<div>
-			<label>Data de LanÁamento</label>
+			<label>Data de Lan√ßamento</label>
 			 <form:input path="dataLancamento" />
 			<form:errors path="dataLancamento" />
 		</div>
@@ -51,7 +51,7 @@
    			 </div>
 		</c:forEach>
 			<div>
-				<label>Sum·rio</label>
+				<label>Sum√°rio</label>
 				<input name="sumario" type="file"> 
 			</div>
 		
