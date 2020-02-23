@@ -3,9 +3,12 @@ package org.casadocodigo.loja.model;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.WebApplicationContext;
 
 @Component //o componente precisa ser declarado para que eu possa fazer o autowired depois 
+@Scope(value=WebApplicationContext.SCOPE_SESSION ) //teremos uma instancia de escopo para cada sessao de usuario
 public class Carrinho {
 
 	private Map<CarrinhoItem, Integer> itens = new LinkedHashMap<CarrinhoItem, Integer>();
