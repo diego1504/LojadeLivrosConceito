@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<c:url value="C:\Users\diego\eclipse-workspace-ee\casadocodigo\src\main" var="contextPath" />
+	<c:url value="/" var="contextPath" />
 	  <meta charset="utf-8"/>
 		 
 		<link rel="icon"
@@ -105,7 +105,7 @@
 	    	 <input type="hidden" value="${produtos.id }" name="produtoId"/> 
 	    	 <c:forEach items="${produtos.precos }" var="preco"> 
 	    	  <li class="buy-option">
-	            <input type="radio" name="tipo" class="variant-radio" id="tipo" value="${preco.tipo }"  checked="checked"  />
+	            <input type="radio" name="tipoPreco" class="variant-radio" id="tipoPreco" value="${preco.tipo }"  checked="checked"  />
 	            <label  class="variant-label" >
 	              ${preco.tipo } 
 	            </label>
