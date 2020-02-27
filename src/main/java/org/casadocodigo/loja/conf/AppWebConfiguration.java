@@ -11,9 +11,13 @@ import org.springframework.format.datetime.DateFormatter;
 import org.springframework.format.datetime.DateFormatterRegistrar;
 import org.springframework.format.support.DefaultFormattingConversionService;
 import org.springframework.format.support.FormattingConversionService;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
+import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 //classe de configuração criada para sabermos onde fica o homecontroler
@@ -23,7 +27,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 //@ComponentScan (basePackages = {"org.casadocodigo.loja.controllers"})este jeito nao é recomendado pois se mudar o pacote, temos que voltar aqui
 
 @ComponentScan (basePackageClasses = {HomeController.class,ProdutoDAO.class, Carrinho.class})
-public class AppWebConfiguration {
+public class AppWebConfiguration extends WebMvcConfigurerAdapter  {
 	
 	//metodo criado para configurar como serao tratados os resources de pagina
 	// pasta WEB-INF é padrao servlet, o servidor sabe que deve esconde-la do usuuario
@@ -69,4 +73,21 @@ public class AppWebConfiguration {
         return new StandardServletMultipartResolver();
     }
 
+	@Override
+    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+        configurer.enable();
+    }
+	
+	@Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/resources/**")
+                .addResourceLocations("/resources/");
+    }
+	
+	@Bean
+	public RestTemplate restTemplate() {
+		return new RestTemplate();
+	}
+	
+	
 }

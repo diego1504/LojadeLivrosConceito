@@ -7,6 +7,7 @@ import org.casadocodigo.loja.model.Produto;
 import org.casadocodigo.loja.model.TipoPreco;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,7 +16,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/carrinho")
-@Scope(value=WebApplicationContext.SCOPE_REQUEST) //um controller atende um request e morre, entao faz sentido delimitar o escopo desta maneira tambem
+@Scope(value=WebApplicationContext.SCOPE_REQUEST, 
+    proxyMode=ScopedProxyMode.TARGET_CLASS) 
+//um controller atende um request e morre, entao faz sentido delimitar o escopo desta maneira tambem
+//o proxyMode serve para deixar o spring cuidar se houverem outras classes controller e nao quiser ficar declarando o escopo da requisicao
 public class CarrinhoComprasController {
 
 	@Autowired
@@ -49,5 +53,13 @@ public class CarrinhoComprasController {
 	
 	
 	}
+
+	@RequestMapping("/remover")
+	public ModelAndView remover(Integer produtoId, TipoPreco tipoPreco) {
+		carrinho.remover(produtoId, tipoPreco);
+		
+		return new ModelAndView("redirect:/carrinho");
+	}
+	
 	
 }
