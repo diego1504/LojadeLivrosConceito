@@ -1,8 +1,13 @@
 package org.casadocodigo.loja.conf;
 
+import java.util.concurrent.TimeUnit;
+
 import org.casadocodigo.loja.controllers.HomeController;
 import org.casadocodigo.loja.daos.ProdutoDAO;
 import org.casadocodigo.loja.model.Carrinho;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cache.guava.GuavaCacheManager;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -20,6 +25,8 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+import com.google.common.cache.CacheBuilder;
+
 //classe de configuração criada para sabermos onde fica o homecontroler
 
 @EnableWebMvc
@@ -27,6 +34,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 //@ComponentScan (basePackages = {"org.casadocodigo.loja.controllers"})este jeito nao é recomendado pois se mudar o pacote, temos que voltar aqui
 
 @ComponentScan (basePackageClasses = {HomeController.class,ProdutoDAO.class, Carrinho.class})
+@EnableCaching //habilitar uso do cash para aumento de perfomance
 public class AppWebConfiguration extends WebMvcConfigurerAdapter  {
 	
 	//metodo criado para configurar como serao tratados os resources de pagina
@@ -87,6 +95,14 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter  {
 	@Bean
 	public RestTemplate restTemplate() {
 		return new RestTemplate();
+	}
+	
+	@Bean
+	public CacheManager cacheManager(){
+	  CacheBuilder<Object, Object> builder = CacheBuilder.newBuilder().maximumSize(100).expireAfterAccess(5, TimeUnit.MINUTES);
+	  GuavaCacheManager manager = new GuavaCacheManager();
+	  manager.setCacheBuilder(builder);
+	  return manager;
 	}
 	
 	

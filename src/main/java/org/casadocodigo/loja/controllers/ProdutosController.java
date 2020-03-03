@@ -10,6 +10,7 @@ import org.casadocodigo.loja.model.Produto;
 import org.casadocodigo.loja.model.TipoPreco;
 import org.casadocodigo.valida.ProdutoValidation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -48,7 +49,7 @@ public class ProdutosController {
 	
 	@RequestMapping(method=RequestMethod.POST) //aqui a diferença do metodo é o fato de ser invocado como post
 //	public String grava(String titulo, String descricao, int paginas) { <- maneira nao elegante
-	
+	@CacheEvict(value="produtosHome",allEntries=true) //anotacao para limpar o cache e fazer as consultas irem buscar novamente
 	public ModelAndView grava(MultipartFile sumario, @Valid Produto produto, BindingResult result, RedirectAttributes redirectAttributes ) { 
 		//incluimos o @valid para o spring ja validar os dados de objeto para nos {	
 		//o binding result deve ficar depois do produto, para o spring entender
