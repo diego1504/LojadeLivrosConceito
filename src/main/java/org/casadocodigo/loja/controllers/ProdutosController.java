@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -95,5 +96,14 @@ public class ProdutosController {
 		return modelAndView;
 	}
 
+	/* metodo removido, iremos fazer um resolver no appwebconfiguration para usar o mesmo metodo do detalge
+	@RequestMapping("/{id}") //metodo para retornar json
+	@ResponseBody //anotacao para transformar em json usando jackson, que esta na pom.xml
+	public Produto detalheJson(@PathVariable("id") Integer id) {	//PathVariable faz o lunk da url amigavel com o metodo
+		
+		return produtoDao.find(id);
+		
+	}
+	*/
 
 }
