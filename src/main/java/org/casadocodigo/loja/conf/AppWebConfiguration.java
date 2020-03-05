@@ -86,16 +86,17 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter  {
         return new StandardServletMultipartResolver();
     }
 
-	@Override
+	@Override //avisa para o spring qual servlet vai pegar as requisições default, como css javascript e tudo mais
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
     }
 	
+	
 	@Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/resources/**")
-                .addResourceLocations("/resources/");
+        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
     }
+    
 	
 	@Bean
 	public RestTemplate restTemplate() {
