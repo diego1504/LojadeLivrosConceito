@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s"%>
-
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -104,9 +104,11 @@
 			<tfoot>
 				<tr>
 					<td colspan="3">
-					  <form action="${s:mvcUrl('PC#finalizar').build() }" method="post"/>	
+					  <form:form servletRelativeAction="${s:mvcUrl('PC#finalizar').build() }" method="post"> <!-- colocamos o servletRelativweAction de modo que possamos nos proteger de CSR -->	
 						<input type="submit" class="checkout" 	name="checkout" 
-								value="Finalizar compra" /></td>
+								value="Finalizar compra" />
+						</form:form>	
+								</td>
 					<td class="numeric-cell">"${carrinho.total }"</td>
 					<td></td>
 				</tr>
