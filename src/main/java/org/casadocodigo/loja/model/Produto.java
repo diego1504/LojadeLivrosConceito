@@ -1,6 +1,7 @@
 package org.casadocodigo.loja.model;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class Produto {
 	private Calendar dataLancamento;
 	
 	@ElementCollection //vai adicionar o preco como parte do produto, ja relaciona, mas sem fazer criar uma tabela 
-	private List<Preco> precos;
+	private List<Preco> precos = new ArrayList<>();
 	
 	private String sumarioPath;
 	

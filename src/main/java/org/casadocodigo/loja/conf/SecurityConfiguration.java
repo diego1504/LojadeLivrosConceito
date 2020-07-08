@@ -14,6 +14,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private UsuarioDAO usuarioDAO;
+
+
+	//atencao a senha é 123456
 	
 	
 	@Override
