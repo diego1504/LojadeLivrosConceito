@@ -15,17 +15,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private UsuarioDAO usuarioDAO;
 
-
-	//atencao a senha é 123456
-	
-	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 	    http.authorizeRequests()
-	    .antMatchers("/resources/**").permitAll() //permite
+	    .antMatchers("/resources/**").permitAll()
 	    .antMatchers("/carrinho/**").permitAll()
-	    .antMatchers("/pagamento/**").permitAll()
-	    .antMatchers("/produtos/form").hasRole("ADMIN") //nao permite, somente quem for admin
+	    .antMatchers("/pagamento/**").authenticated()
+	    .antMatchers("/produtos/form").hasRole("ADMIN")
 	    .antMatchers(HttpMethod.POST, "/produtos").hasRole("ADMIN") 
 	    .antMatchers(HttpMethod.GET, "/produtos").hasRole("ADMIN")
 	    .antMatchers("/produtos/**").permitAll()

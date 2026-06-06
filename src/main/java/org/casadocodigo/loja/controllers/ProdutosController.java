@@ -9,6 +9,8 @@ import org.casadocodigo.loja.daos.ProdutoDAO;
 import org.casadocodigo.loja.model.Produto;
 import org.casadocodigo.loja.model.TipoPreco;
 import org.casadocodigo.valida.ProdutoValidation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Controller;
@@ -27,7 +29,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/produtos") //incluindo aqui o /produtos todos os metodos abaixo herdam este cara
 public class ProdutosController {
 
-	@Autowired   //anotacao para injetar o objeto
+	private static final Logger log = LoggerFactory.getLogger(ProdutosController.class);
+
+	@Autowired
 	private ProdutoDAO produtoDao;
 	
 	@Autowired
@@ -55,12 +59,7 @@ public class ProdutosController {
 		//incluimos o @valid para o spring ja validar os dados de objeto para nos {	
 		//o binding result deve ficar depois do produto, para o spring entender
 		//inclusao do multipartfile para receber imagens 
-		System.out.println(produto); //importante lembrar que o JAVA ja faz o binding pois as variaveis estao com o mesmo nome do JSP
-		
-		//System.out.println(sumario.getOriginalFilename()); //mostrar nome do arquivo que fizemos upload
-		
 		if (result.hasErrors()) {
-			System.out.println("entrei no erro");
 			return form(produto);
 		}
 		

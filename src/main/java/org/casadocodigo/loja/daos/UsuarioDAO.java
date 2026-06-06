@@ -22,7 +22,7 @@ public class UsuarioDAO implements UserDetailsService {
 									.getResultList();
 	
 	if(usuarios.isEmpty()) {
-		throw new UsernameNotFoundException("O usuario " + email + "nao foi encontrado");
+		throw new UsernameNotFoundException("Credenciais inválidas");
 	}
 		
 	return usuarios.get(0);

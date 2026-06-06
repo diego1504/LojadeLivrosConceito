@@ -40,10 +40,9 @@ public class JPAConfiguration {
 	private Properties aditionalProperties() {
 		Properties props = new Properties();
 		props.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
-		props.setProperty("hibernate.show_sql", "true");
-		props.setProperty("hibernate.hbm2ddl.auto", "update");
-        //	props.setProperty("hibernate.hbm2ddl.auto", "validate");
-		props.setProperty("hibernate.format_sql", "true");
+		props.setProperty("hibernate.show_sql", System.getenv().getOrDefault("HIBERNATE_SHOW_SQL", "false"));
+		props.setProperty("hibernate.hbm2ddl.auto", System.getenv().getOrDefault("HIBERNATE_DDL_AUTO", "validate"));
+		props.setProperty("hibernate.format_sql", "false");
 		return props;
 	}
 
@@ -52,9 +51,9 @@ public class JPAConfiguration {
 	public DriverManagerDataSource dataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://localhost/casadocodigo?useTimezone=true&serverTimezone=UTC");
-		dataSource.setUsername("root");
-		dataSource.setPassword("admin");
+		dataSource.setUrl(System.getenv().getOrDefault("DB_URL", "jdbc:mysql://localhost/casadocodigo?useTimezone=true&serverTimezone=UTC"));
+		dataSource.setUsername(System.getenv().getOrDefault("DB_USERNAME", "root"));
+		dataSource.setPassword(System.getenv().getOrDefault("DB_PASSWORD", ""));
 		return dataSource;
 	}
 	
