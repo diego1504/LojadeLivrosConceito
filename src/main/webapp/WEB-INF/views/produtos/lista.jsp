@@ -52,7 +52,7 @@
 <div class="container"> <!-- centralizar itens no meio da tela -->
 	<h1>LISTA DE PRODUTOS QUE VOCE CADASTROU</h1>
 	
-	<p>${sucesso }</p>
+	<p><c:out value="${sucesso}"/></p>
 	
 	
 	

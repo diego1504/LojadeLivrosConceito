@@ -38,9 +38,9 @@ public class PagamentoController {
 			String uri = "https://book-payment.herokuapp.com/payment";
 
 			try {
-				String response = restTemplate.postForObject(uri, new DadosPagamento(carrinho.getTotal()), String.class);
+				restTemplate.postForObject(uri, new DadosPagamento(carrinho.getTotal()), String.class);
 				log.info("Pagamento processado com sucesso");
-				model.addFlashAttribute("sucesso", response);
+				model.addFlashAttribute("sucesso", "Pagamento realizado com sucesso!");
 				return new ModelAndView("redirect:/produtos");
 			} catch (HttpClientErrorException e) {
 				log.warn("Pagamento recusado: {}", e.getStatusCode());
